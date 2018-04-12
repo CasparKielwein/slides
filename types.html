@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+    href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
+  <script src="http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js"
+    charset="utf-8" type="text/javascript"></script>
+</head>
+<body>
+<div id="types-as-a-negative-cost-abstraction" class="slide section level1">
+<h1>Types as a Negative Cost Abstraction</h1>
+</div>
+<div id="strict-typedef" class="slide section level1">
+<h1>Strict Typedef</h1>
+<ul>
+<li>Template Wrapper um (primitiven) Typ</li>
+<li>aka. Named Value</li>
+<li>Domain Driven Design</li>
+</ul>
+</div>
+<div id="code" class="slide section level1">
+<h1>Code</h1>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">template</span>&lt;<span class="kw">class</span> T, <span class="kw">class</span> tag&gt;
+<span class="kw">class</span> NamedValue {
+<span class="kw">public</span>:
+    <span class="co">/// Require explicit conversion from original value</span>
+    <span class="kw">explicit</span> NamedValue(T v) :
+            value { <span class="bu">std::</span>move(v) } {
+    }
+
+    NamedValue() = <span class="cf">default</span>;
+
+    <span class="co">/// short call to get original value</span>
+    T get() <span class="at">const</span> {
+        <span class="cf">return</span> value;
+    }
+<span class="kw">private</span>:
+    T value;
+};</code></pre></div>
+</div>
+<div class="slide section level1">
+
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">struct</span> <span class="dt">height_t</span> {};
+<span class="kw">struct</span> <span class="dt">widh_t</span> {};
+<span class="kw">using</span> Height = NamedValue&lt;<span class="dt">double</span>, <span class="dt">height_t</span>&gt;;
+<span class="kw">using</span> Width = NamedValue&lt;<span class="dt">double</span>, <span class="dt">widh_t</span>&gt;;
+ 
+<span class="kw">auto</span> a = Rectangle{Height{<span class="fl">1.2</span>}, Width{<span class="fl">3.4</span>}};</code></pre></div>
+</div>
+<div id="codegen" class="slide section level1">
+<h1>Codegen</h1>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">struct</span> height_tag {};
+<span class="kw">struct</span> width_tag {};
+<span class="kw">struct</span> area_tag{};
+<span class="kw">using</span> Height = NamedValue&lt;<span class="dt">double</span>, height_tag&gt;;
+<span class="kw">using</span> Width = NamedValue&lt;<span class="dt">double</span>, width_tag&gt;;
+<span class="kw">using</span> Area = NamedValue&lt;<span class="dt">double</span>, area_tag&gt;;
+
+<span class="dt">void</span> area(<span class="at">const</span> <span class="dt">double</span>&amp; x, <span class="at">const</span> <span class="dt">double</span>&amp; y, <span class="dt">double</span>&amp; area, <span class="dt">double</span>&amp; area2){
+    area = x*y;
+    area2 = x*y;
+}
+<span class="dt">void</span> area(<span class="at">const</span> Width&amp; x, <span class="at">const</span> Height&amp; y, Area&amp; a,  Area&amp; a2){
+    a = Area{ x.get() * y.get() };
+    a2 = Area{ x.get() * y.get() };
+}</code></pre></div>
+</div>
+<div id="results" class="slide section level1">
+<h1>Results</h1>
+<div class="sourceCode"><pre class="sourceCode asm"><code class="sourceCode fasm">area(double const&amp;, double const&amp;, double&amp;, double&amp;):
+  <span class="bu">movsd</span> <span class="kw">xmm0</span>, <span class="dt">QWORD</span> <span class="dt">PTR</span> [<span class="kw">rdi</span>]
+  <span class="bu">mulsd</span> <span class="kw">xmm0</span>, <span class="dt">QWORD</span> <span class="dt">PTR</span> [<span class="kw">rsi</span>]
+  <span class="bu">movsd</span> <span class="dt">QWORD</span> <span class="dt">PTR</span> [<span class="kw">rdx</span>], <span class="kw">xmm0</span>
+  <span class="bu">movsd</span> <span class="kw">xmm0</span>, <span class="dt">QWORD</span> <span class="dt">PTR</span> [<span class="kw">rdi</span>]
+  <span class="bu">mulsd</span> <span class="kw">xmm0</span>, <span class="dt">QWORD</span> <span class="dt">PTR</span> [<span class="kw">rsi</span>]
+  <span class="bu">movsd</span> <span class="dt">QWORD</span> <span class="dt">PTR</span> [<span class="kw">rcx</span>], <span class="kw">xmm0</span>
+  <span class="bu">ret</span>
+area(NamedValue&lt;&gt; const&amp;,NamedValue&lt;&gt; const&amp;,NamedValue&lt;&gt;&amp;,NamedValue&lt;&gt;&amp;):
+  <span class="bu">movsd</span> <span class="kw">xmm0</span>, <span class="dt">QWORD</span> <span class="dt">PTR</span> [<span class="kw">rdi</span>]
+  <span class="bu">mulsd</span> <span class="kw">xmm0</span>, <span class="dt">QWORD</span> <span class="dt">PTR</span> [<span class="kw">rsi</span>]
+  <span class="bu">movsd</span> <span class="dt">QWORD</span> <span class="dt">PTR</span> [<span class="kw">rdx</span>], <span class="kw">xmm0</span>
+  <span class="bu">movsd</span> <span class="dt">QWORD</span> <span class="dt">PTR</span> [<span class="kw">rcx</span>], <span class="kw">xmm0</span>
+  <span class="bu">ret</span></code></pre></div>
+</div>
+<div id="fazit" class="slide section level1">
+<h1>Fazit</h1>
+<ul>
+<li>Lesbarerer Code</li>
+<li>Weniger Bugs</li>
+<li>Schnellerer Code</li>
+<li>Benchmarks are hard</li>
+</ul>
+</div>
+<div id="further-reading" class="slide section level1">
+<h1>Further Reading</h1>
+<ul>
+<li>Beispielimplementierung: https://github.com/CasparKielwein/cpp-bubbles/</li>
+<li>Boost Units: https://www.boost.org/doc/libs/1_65_0/doc/html/boost_units.html</li>
+<li>experiment on compiler explorer: https://godbolt.org/g/9VJSbC</li>
+</ul>
+</div>
+</body>
+</html>
