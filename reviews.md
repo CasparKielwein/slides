@@ -1,21 +1,26 @@
 # Reviews and Power Dynamics
 
-## Code Review
+# Code Review
 * Accepted as powerful tool
   * Quality Assurance
   * Knowledge Transfer
   * Team participation
 
-## Tool support
+# Tool support
 * Reviewboard
 * github pull request
 * gitlab merge request
 * email patches
 * etc. etc. etc.
 
-## Reviews
+# Reviews
 * Who reviews other peoples work?
 * whose work is reviewd?
 
-## Reviews and Conflicts
+# Reviews and Conflicts
 
+# Feeling Angry
+
+# What can we do?
+
+# Further Reading
