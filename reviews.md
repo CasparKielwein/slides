@@ -18,6 +18,12 @@
 * whose work is reviewd?
 
 # Reviews and Conflicts
+* Reviews frequently cause conflicts
+* often little relation to technical issues
+
+# Work and personal Identiy
+
+# Reviews and Power
 
 # Feeling Angry
 
