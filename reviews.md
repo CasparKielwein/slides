@@ -22,11 +22,17 @@
 * often little relation to technical issues
 
 # Work and personal Identiy
+I am a Programmer!
 
 # Reviews and Power
+Judge my Code
+-> Judge me?
 
 # Feeling Angry
 
 # What can we do?
+* Acknowledge the responsibility
+* Praise generously
+* Don't review while angry
 
 # Further Reading
