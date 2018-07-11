@@ -25,6 +25,12 @@
 
 # Why?
 
+# Self-Worth ( A Model )
+## Three Pillars
+* Self-worth
+* Idols 
+* Conscience
+
 # Work and personal Identiy
 I am a Programmer!
 
@@ -43,3 +49,4 @@ Judging my Code
 * Don't review while angry
 
 # Further Reading
+* Stavros Mentzos - Lehrbuch der Psychodynamik
