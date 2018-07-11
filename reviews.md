@@ -15,7 +15,7 @@
 
 # Reviews
 * Who reviews other peoples work?
-* whose work is reviewd?
+* whose work is reviewed?
 
 # Reviews and Conflicts
 * Reviews frequently cause conflicts
@@ -29,16 +29,13 @@
 ## Three Pillars
 * Self-worth
 * Idols 
-* Conscience
+* Consciences
 
-# Work and personal Identiy
-I am a Programmer!
+![pillars.jpg]
 
 # Reviews and Power
 Judging my Code
 -> Judging me?
-
-# Presenting your work for review
 
 # Responsibility
 * We are given great Power
