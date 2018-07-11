@@ -19,16 +19,23 @@
 
 # Reviews and Conflicts
 * Reviews frequently cause conflicts
-* often little relation to technical issues
+* often little relation to technical issues  
+  -> endless discussions  
+  -> reluctance to contribute
+
+# Why?
 
 # Work and personal Identiy
 I am a Programmer!
 
 # Reviews and Power
-Judge my Code
--> Judge me?
+Judging my Code
+-> Judging me?
 
-# Feeling Angry
+# Presenting your work for review
+
+# Responsibility
+* We are given great Power
 
 # What can we do?
 * Acknowledge the responsibility
